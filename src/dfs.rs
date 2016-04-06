@@ -11,7 +11,7 @@ use libc::{c_char, c_int, c_short, c_void, int16_t, int32_t, int64_t, time_t};
 
 use err::HdfsErr;
 use native::*;
-use util::{chars_to_str, str_to_chars, bool_to_c_int};
+use util::{chars_to_str, str_to_chars, str_to_chars0 , bool_to_c_int};
 
 const O_RDONLY: c_int = 0;
 const O_WRONLY: c_int = 1;
@@ -761,7 +761,8 @@ impl<'a> HdfsFsCache<'a>
     if !map.contains_key(&namenode_uri) {  
       let hdfs_fs = unsafe {
         let hdfs_builder = hdfsNewBuilder();
-        hdfsBuilderSetNameNode(hdfs_builder, str_to_chars(&namenode_uri));
+        let uri_ptr = str_to_chars0(&namenode_uri);
+        hdfsBuilderSetNameNode(hdfs_builder, uri_ptr.as_ptr());
         info!("Connecting to Namenode ({})", &namenode_uri);
         hdfsBuilderConnect(hdfs_builder)
       };
