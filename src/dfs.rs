@@ -762,7 +762,11 @@ impl<'a> HdfsFsCache<'a>
       let hdfs_fs = unsafe {
         let hdfs_builder = hdfsNewBuilder();
         let uri_ptr = str_to_chars0(&namenode_uri);
+<<<<<<< HEAD
         hdfsBuilderSetNameNode(hdfs_builder, uri_ptr.as_ptr());
+=======
+        hdfsBuilderSetNameNode(hdfs_builder, str_to_chars(uri_ptr.as_ptr()));
+>>>>>>> refs/remotes/origin/master
         info!("Connecting to Namenode ({})", &namenode_uri);
         hdfsBuilderConnect(hdfs_builder)
       };
