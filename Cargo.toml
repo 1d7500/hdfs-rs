@@ -19,7 +19,7 @@ path = "src/lib.rs"
 
 [dependencies]
 itertools = "0.4.1"
-libc = "*"
+libc = "0.2"
 log = "0.3"
 url = "0.2"
 
